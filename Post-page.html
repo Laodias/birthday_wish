@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Love</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background: url('bckground.png') no-repeat center center/cover;
+            background-size: cover;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(79, 79, 79, 0.6);
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 20px;
+            max-width: 650px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+            margin-top: 80px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .content p {
+            margin: 20px 0;
+            font-size: 1.5em;
+            line-height: 1.8em;
+            font-family: 'Georgia', serif;
+        }
+
+        .content span {
+            color: #ff7373;
+            font-weight: bold;
+        }
+
+        .content p:first-of-type {
+            font-size: 2em;
+            margin-top: 0;
+        }
+
+        .content p:last-of-type {
+            font-size: 1.4em;
+            font-style: italic;
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            margin-top: 40px;
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        footer a {
+            color: #ff7373;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Fade-in effect */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff7373;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff9a9a;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="content">
+        <p>Dear <span>My Love</span>,</p>
+        <p>
+            Thank you so much for taking the time to see everything I've created. Every page, every word, and every detail was made with you in mind, hoping to bring a smile to your face despite the distance between us.
+        </p>
+        <p>
+            I want you to know that your presence in my life is the greatest gift, and even though we’re miles apart, my thoughts are always with you. Your support, love, and understanding mean the world to me.
+        </p>
+        <p>
+            I hope these pages remind you of how much I care and how grateful I am to have you in my life. You truly make every moment worth it, and I can’t wait until the day we can close this distance and share these little things in person.
+        </p>
+        <p>
+            Thank you for being you
+        </p>
+        <p>With all my love, <br> <span>Odi</span></p>
+    </div>
+
+    <footer>
+        <p>Click <a href="all-pages.html">here</a> to return to all of my pages.</p>
+    </footer>
+</body>
+</html>

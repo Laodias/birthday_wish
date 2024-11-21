@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Well Do You Know Me?</title>
+    <script src="background-audio.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #fbc2eb, #a6c1ee);
+            color: #fff;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+            position: relative;
+            animation: fadeIn 2s ease;
+        }
+
+        .question {
+            font-size: 2rem;
+            font-family: 'Great Vibes', cursive;
+            margin-bottom: 20px;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 1rem;
+            color: #333;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .options button:hover {
+            background: #f9a8d1;
+            color: #fff;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: #ffffff;
+            font-family: 'Great Vibes', cursive;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .next-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            background: #ff4d4d;
+        }
+        .next-page-btn {
+            margin-top: 30px;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            background: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .next-page-btn:hover {
+            background: #45a049;
+        }
+
+
+        .result {
+            display: none;
+            font-size: 2rem;
+            font-family: 'Great Vibes', cursive;
+            margin-top: 30px;
+            animation: fadeIn 2s ease;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Glowing Stars */
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+    <!-- Glowing Stars -->
+    <div class="star" style="top: 20%; left: 15%; animation-delay: 1s;"></div>
+    <div class="star" style="top: 40%; left: 80%; animation-delay: 2s;"></div>
+    <div class="star" style="top: 60%; left: 50%; animation-delay: 3s;"></div>
+    <div class="star" style="top: 80%; left: 20%; animation-delay: 4s;"></div>
+    <div class="star" style="top: 10%; left: 70%; animation-delay: 5s;"></div>
+
+    <div class="container">
+        <div id="quiz">
+            <div id="question" class="question"></div>
+            <div class="options" id="options"></div>
+        </div>
+        <div id="feedback" class="feedback"></div>
+        <button id="nextBtn" class="next-btn">Next Question</button>
+        <div id="result" class="result"></div>
+        <button id="nextPageBtn" class="next-page-btn" onclick="window.location.href='future-wishes.html'">Click here again</button>
+    </div>
+
+    </div>
+
+    <script>
+        const quizData = [
+        {
+                question: "Dimana aku lahir?",
+                options: ["Kendari", "Jakarta", "Bengkulu", "Amsterdam"],
+                answer: "Bengkulu",
+            },
+            {
+                question: "Kapan aku lahir?",
+                options: ["19 Desember 2000", "19 Desember 1945", "22 November 2000", "19 Desember 2002"],
+                answer: "19 Desember 2000",
+            },
+            {
+                question: "Aku lagi tinggal dimana hayo?",
+                options: ["Kendari", "Bali", "Medan", "Jakarta"],
+                answer: "Jakarta",
+            },
+            {
+                question: "Apa makanan kesukaanku?",
+                options: ["Ikan Goreng", "Nasi Goreng", "Mie Goreng", "Mie Ayam"],
+                answer: "Nasi Goreng",
+            },
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const nextBtn = document.getElementById('nextBtn');
+        const resultEl = document.getElementById('result');
+
+        function loadQuestion() {
+            feedbackEl.textContent = '';
+            nextBtn.style.display = 'none';
+            const current = quizData[currentQuestion];
+            questionEl.textContent = current.question;
+            optionsEl.innerHTML = '';
+            current.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                optionsEl.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected) {
+            const current = quizData[currentQuestion];
+            feedbackEl.textContent = selected === current.answer
+                ? "Kamu benar! ❤️ Hebat sekali!"
+                : `Salah, Sayang. Jawaban yang benar: ${current.answer}`;
+            if (selected === current.answer) score++;
+            nextBtn.style.display = 'inline-block';
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        };
+
+        function showResult() {
+            questionEl.style.display = 'none';
+            optionsEl.style.display = 'none';
+            feedbackEl.style.display = 'none';
+            nextBtn.style.display = 'none';
+
+            const scorePercentage = (score / quizData.length) * 100;
+            resultEl.style.display = 'block';
+            nextPageBtn.style.display = 'inline-block';
+            if (scorePercentage <= 30) {
+                resultEl.innerHTML = `😢 Parah sih cuman mendapat ${scorePercentage.toFixed(0)}%! sakit hati aku ges`;
+            } else if (scorePercentage <= 50) {
+                resultEl.innerHTML = `😏 idih ${scorePercentage.toFixed(0)}%. Hoki aja itu `;
+            } else {
+                resultEl.innerHTML = `❤️ Hebat! ${scorePercentage.toFixed(0)}% benar. Aw pacar siapa sih ini? sayang bangett`;
+            }
+        }
+
+        function startAnimation() {
+            const canvas = document.querySelector('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const hearts = [];
+            for (let i = 0; i < 100; i++) {
+                hearts.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speed: Math.random() * 1 + 0.5,
+                });
+            }
+
+            function drawHearts() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                hearts.forEach(heart => {
+                    ctx.beginPath();
+                    ctx.arc(heart.x, heart.y, heart.size, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255, 100, 100, 0.8)';
+                    ctx.fill();
+                    heart.y -= heart.speed;
+                    if (heart.y < 0) heart.y = canvas.height;
+                });
+                requestAnimationFrame(drawHearts);
+            }
+            drawHearts();
+        }
+
+        window.addEventListener('resize', () => {
+            const canvas = document.querySelector('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        loadQuestion();
+        startAnimation();
+    </script>
+</body>
+</html>

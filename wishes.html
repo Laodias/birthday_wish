@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Birthday Wish</title>
+    <script src="background-audio.js"></script>
+    <style>
+    
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ee9ca7, #ffdde1);
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        header {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 30px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .gif-container {
+            margin: 20px auto;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        .gif-container img {
+            width: 200px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .birthday-wish {
+            margin: 20px auto;
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #444;
+            width: 85%;
+            max-width: 700px;
+            text-align: left;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .birthday-wish strong {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .heart-animation {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            animation: pulse 1.5s infinite;
+            text-align: center;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 105, 135, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background: linear-gradient(135deg, #ff8e8e, #ff6b6b);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(255, 105, 135, 0.6);
+        }
+
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            color: #555;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <canvas></canvas>
+
+    <header>Happy Birthday, My Love! 💖</header>
+
+    <div class="gif-container">
+        <img src="chamber-valorant.gif" alt="Love GIF">
+    </div>
+
+    <div class="birthday-wish">
+        <p>🌟 <strong>Happy 24th Birthday, My Love!</strong> 🌟</p>
+        <p>Today, we celebrate not just another year of your life, but the amazing person you are and all the happiness you bring to those around you—especially to me. 💖</p>
+        <p>Even though we’re miles apart today, my heart is right there with you, celebrating your special day. 💕</p>
+        <p>I wish more than anything that I could be by your side, hold your hand, and see your beautiful smile as you blow out the candles. 🕯️</p>
+        <p>But distance could never lessen the love I have for you—it only makes me cherish you even more.</p>
+        <p>You’re 24 today, and with every year, you grow even more beautiful, kind, and extraordinary. I’m endlessly grateful to walk this journey of life with you by my side. You make my world brighter, my heart fuller, and my days better just by being you.</p>
+        <p>I hope this year is filled with laughter, adventure, and all the dreams you hold close to your heart. You deserve every ounce of joy, love, and success that life has to offer.</p>
+        <p>Here’s to celebrating you today and always—because you’re my everything, and I love you more than words can say. Cheers to you and all the wonderful things ahead. 🥂</p>
+        <p>Until the day I can celebrate your birthday in person, know that I’m sending you all my love, hugs, and kisses across the miles. 💌</p>
+        <p class="heart-animation">❤️ You’re always in my heart, no matter the distance. ❤️</p>
+        <p>🎂 Happy Birthday, Sayang! 🎉</p>
+        <p>With all my love, <br>Odi 💕</p>
+    </div>
+
+    <div class="button-container">
+        <a href="Quiz.html" class="button">Click Here There're More Thing🌟</a>
+    </div>
+
+    <footer>
+        Made with ❤️ by <a href="#">Odi</a>
+    </footer>
+
+    <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const blossoms = [];
+        const colors = ['#FFB6C1', '#FFC0CB', '#FF69B4', '#FF1493'];
+
+        function createBlossoms(count) {
+            for (let i = 0; i < count; i++) {
+                blossoms.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 5 + 3,
+                    speed: Math.random() * 2 + 1,
+                    drift: Math.random() * 2 - 1,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                });
+            }
+        }
+
+        function drawBlossoms() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            blossoms.forEach((blossom) => {
+                ctx.beginPath();
+                ctx.arc(blossom.x, blossom.y, blossom.size, 0, Math.PI * 2);
+                ctx.fillStyle = blossom.color;
+                ctx.fill();
+
+                blossom.y += blossom.speed;
+                blossom.x += blossom.drift;
+
+                if (blossom.y > canvas.height) {
+                    blossom.y = -10;
+                    blossom.x = Math.random() * canvas.width;
+                }
+            });
+
+            requestAnimationFrame(drawBlossoms);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        createBlossoms(100);
+        drawBlossoms();
+    </script>
+</body>
+</html>

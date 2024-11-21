@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Future Wishes</title>
+    <script src="background-audio.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300;400;500&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ee9ca7, #ffdde1);
+            color: #333;
+            text-align: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        header {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            margin: 20px 0;
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .subheading {
+            font-size: 1.2rem;
+            margin: 10px 0 20px;
+            color: #fff;
+            opacity: 0.8;
+        }
+
+        .wish-form {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            resize: none;
+            font-family: 'Roboto', sans-serif;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .button {
+            margin-top: 10px;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            color: #fff;
+            background: linear-gradient(120deg, #ff6b6b, #ff9a9e);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 105, 135, 0.4);
+        }
+
+        .button:hover {
+            background: linear-gradient(120deg, #ff9a9e, #ff6b6b);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(255, 105, 135, 0.6);
+        }
+
+        .wishes-container {
+            margin: 30px auto;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .wish {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .wish:before {
+            content: '💖';
+            position: absolute;
+            top: 10px;
+            left: -35px;
+            font-size: 1.5rem;
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            transform: rotate(45deg);
+            animation: float 8s linear infinite;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            border-radius: 50% 50% 0 0;
+            top: -10px;
+            left: -10px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>Future Wishes 💕</header>
+    <div class="subheading">Express your dreams and aspirations for the future here.</div>
+
+    <!-- Floating Hearts -->
+    <div class="heart" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="heart" style="left: 40%; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 60%; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 80%; animation-delay: 3s;"></div>
+
+    <div class="wish-form">
+        <textarea id="wishInput" rows="5" placeholder="Write your wish here..."></textarea>
+        <button class="button" onclick="addWish()">Submit</button>
+    </div>
+
+    <div class="wishes-container" id="wishesContainer">
+        <!-- Submitted wishes will appear here -->
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button class="button" onclick="nextPage()">Next Page</button>
+    </div>
+
+    <script>
+        // Retrieve saved wishes from local storage
+        const wishesContainer = document.getElementById('wishesContainer');
+        let wishes = JSON.parse(localStorage.getItem('wishes')) || [];
+
+        // Function to display all wishes
+        function displayWishes() {
+            wishesContainer.innerHTML = '';
+            wishes.forEach(wish => {
+                const wishElement = document.createElement('div');
+                wishElement.classList.add('wish');
+                wishElement.innerText = wish;
+                wishesContainer.appendChild(wishElement);
+            });
+        }
+
+        // Function to add a new wish
+        function addWish() {
+            const wishInput = document.getElementById('wishInput');
+            const wishText = wishInput.value.trim();
+            if (wishText) {
+                wishes.push(wishText);
+                localStorage.setItem('wishes', JSON.stringify(wishes));
+                wishInput.value = ''; // Clear the input
+                displayWishes();
+            } else {
+                alert('Please write something before submitting!');
+            }
+        }
+
+        // Display existing wishes on page load
+        displayWishes();
+
+        // Function for the "Next Page" button
+        function nextPage() {
+            // You can set the next page URL here, or handle your redirection
+            window.location.href = 'Post-page.html'; // Redirect to the next page
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why I Love You</title>
+    <script src="background-audio.js"></script>
+    <style>
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+
+        /* General Page Styling */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(120deg, #f7a8b8, #d6c9e4);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Floating Hearts Animation */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            transform: rotate(45deg);
+            animation: floatUp 5s linear infinite;
+            border-radius: 50% 50% 0 0;
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #ff6b6b;
+            border-radius: 50% 50% 0 0;
+            top: -10px;
+            left: -10px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Wrapper for content */
+        .content {
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header Styling */
+        header {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            margin-top: 20px;
+            letter-spacing: 2px;
+            color: #ed8989;
+            animation: slideIn 1.5s ease-out;
+        }
+
+        /* Subheading styling */
+        .subheading {
+            font-size: 1.5rem;
+            color: #f07f7f;
+            margin-top: 20px;
+            opacity: 0.8;
+            font-weight: 300;
+            animation: fadeInText 2s ease-in-out;
+        }
+
+        /* Paragraphs for reasons */
+        .reason {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-top: 30px;
+            color: #f4f1f1;
+            animation: fadeInText 3s ease-in-out;
+            text-align: justify;
+            max-width: 750px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Button Container */
+        .button-container {
+            margin-top: 40px;
+        }
+
+        /* Styled Button */
+        .button {
+            padding: 15px 30px;
+            background: linear-gradient(120deg, #ff6b6b, #ff9a9e);
+            border: none;
+            color: #fff;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .button:hover {
+            background: linear-gradient(120deg, #ff9a9e, #ff6b6b);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(255, 105, 180, 0.6);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Hearts -->
+    <div class="heart" style="left: 20%; animation-delay: 0s;"></div>
+    <div class="heart" style="left: 40%; animation-delay: 1s;"></div>
+    <div class="heart" style="left: 60%; animation-delay: 2s;"></div>
+    <div class="heart" style="left: 80%; animation-delay: 3s;"></div>
+
+    <div class="content">
+        <header>Why I Love You</header>
+        <div class="subheading">Mai, you're the most incredible person I know.</div>
+        
+        <div class="reason">
+            You have a heart of gold, always putting others before yourself. Your smile can light up the darkest room, and your laughter is the sweetest sound I’ve ever heard.
+        </div>
+        <div class="reason">
+            Your kindness, your compassion, your strength—it all makes you the most amazing woman. I’m endlessly grateful for every moment we’ve shared and every moment to come.
+        </div>
+        <div class="reason">
+            There are a thousand more reasons why I love you, but it’s your beautiful soul that holds it all together. I am truly the luckiest person to call you mine.
+        </div>
+
+        <div class="button-container">
+            <button class="button" onclick="window.location.href='wishes.html'">One Last Surprise</button>
+        </div>
+    </div>
+</body>
+</html>
